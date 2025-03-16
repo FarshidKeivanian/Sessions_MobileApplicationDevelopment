@@ -3,7 +3,6 @@ package com.example.interactivegreeting  // Ensure package matches the file loca
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -18,7 +17,6 @@ import com.example.interactivegreeting.ui.theme.HelloAppTheme  // Ensure this im
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContent {
             HelloAppTheme { // Ensure this theme exists
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
@@ -68,7 +66,7 @@ fun InteractiveGreeting(modifier: Modifier = Modifier) {
 
         Text(
             text = greetingMessage,
-            style = MaterialTheme.typography.headlineLarge,
+            style = MaterialTheme.typography.bodyLarge,  // <--- Fixed possible issue
             modifier = Modifier.padding(top = 8.dp)
         )
     }
