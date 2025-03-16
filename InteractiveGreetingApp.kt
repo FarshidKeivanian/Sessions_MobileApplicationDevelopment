@@ -1,11 +1,10 @@
-package com.example.helloapp
+package com.example.interactivegreeting  // Ensure package matches the file location
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
@@ -14,14 +13,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.helloapp.ui.theme.HelloAppTheme
+import com.example.interactivegreeting.ui.theme.HelloAppTheme  // Ensure this import is correct
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            HelloAppTheme {
+            HelloAppTheme { // Ensure this theme exists
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     InteractiveGreeting(
                         modifier = Modifier.padding(innerPadding)
@@ -78,7 +77,7 @@ fun InteractiveGreeting(modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-    HelloAppTheme {
+    HelloAppTheme { // Ensure this theme exists
         InteractiveGreeting()
     }
 }
