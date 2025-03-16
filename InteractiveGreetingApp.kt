@@ -1,26 +1,27 @@
-package com.example.interactivegreeting  // Ensure package matches the file location
+package com.example.myinteractivehello
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import com.example.interactivegreeting.ui.theme.HelloAppTheme  // Ensure this import is correct
+import com.example.myinteractivehello.ui.theme.MyInteractiveHelloTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         setContent {
-            HelloAppTheme { // Ensure this theme exists
+            MyInteractiveHelloTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    InteractiveGreeting(
+                    Greeting(
+                        name = "Android",
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -30,52 +31,17 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun InteractiveGreeting(modifier: Modifier = Modifier) {
-    var name by remember { mutableStateOf("") }
-    var greetingMessage by remember { mutableStateOf("Hello, Farshid!") }
-
-    Column(
+fun Greeting(name: String, modifier: Modifier = Modifier) {
+    Text(
+        text = "Hello $name!",
         modifier = modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
-        OutlinedTextField(
-            value = name,
-            onValueChange = { name = it },
-            label = { Text("Enter your name") },
-            singleLine = true,
-            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
-            keyboardActions = KeyboardActions(onDone = {
-                greetingMessage = if (name.isNotBlank()) "Hello, $name!" else "Hello, Farshid!"
-            }),
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Button(
-            onClick = {
-                greetingMessage = if (name.isNotBlank()) "Hello, $name!" else "Hello, Farshid!"
-            },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text(text = "Greet Me")
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Text(
-            text = greetingMessage,
-            style = MaterialTheme.typography.bodyLarge,  // <--- Fixed possible issue
-            modifier = Modifier.padding(top = 8.dp)
-        )
-    }
+    )
 }
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-    HelloAppTheme { // Ensure this theme exists
-        InteractiveGreeting()
+    MyInteractiveHelloTheme {
+        Greeting("Android")
     }
 }
