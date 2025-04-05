@@ -1,48 +1,71 @@
-plugins {
-    id("com.android.application")
-    kotlin("android")
-    // REMOVE this line below to fix conflict:
-    // id("org.jetbrains.kotlin.plugin.compose") version "1.5.3"
+package com.example.styledbuttondemoweek5
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.example.styledbuttondemoweek5.ui.theme.StyledButtonDemoWeek5Theme
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContent {
+            StyledButtonDemoWeek5Theme {
+                Scaffold(
+                    modifier = Modifier.fillMaxSize()
+                ) { padding ->
+                    Column(
+                        modifier = Modifier
+                            .padding(padding)
+                            .padding(24.dp)
+                            .fillMaxSize(),
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        StyledButton()
+                    }
+                }
+            }
+        }
+    }
 }
 
-android {
-    namespace = "com.example.styledbuttondemoweek5"
-    compileSdk = 34
+@Composable
+fun StyledButton() {
+    var clickCount by remember { mutableStateOf(0) }
 
-    defaultConfig {
-        applicationId = "com.example.styledbuttondemoweek5"
-        minSdk = 24
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    buildFeatures {
-        compose = true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.3"
-    }
-
-    kotlinOptions {
-        jvmTarget = "1.8"
+    Button(
+        onClick = { clickCount++ },
+        colors = ButtonDefaults.buttonColors(
+            containerColor = Color(0xFF6200EE), // Purple
+            contentColor = Color.White
+        ),
+        shape = MaterialTheme.shapes.medium,
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(56.dp)
+    ) {
+        Text(
+            text = "Clicked $clickCount times",
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Bold
+        )
     }
 }
 
-dependencies {
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
-    implementation("androidx.activity:activity-compose:1.8.2")
-    implementation("androidx.compose.ui:ui:1.5.3")
-    implementation("androidx.compose.ui:ui-tooling-preview:1.5.3")
-    implementation("androidx.compose.material3:material3:1.1.2")
-
-    debugImplementation("androidx.compose.ui:ui-tooling:1.5.3")
-    debugImplementation("androidx.compose.ui:ui-test-manifest:1.5.3")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.5.3")
+@Preview(showBackground = true)
+@Composable
+fun ButtonPreview() {
+    StyledButtonDemoWeek5Theme {
+        StyledButton()
+    }
 }
