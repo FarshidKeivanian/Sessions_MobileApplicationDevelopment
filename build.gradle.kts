@@ -1,6 +1,8 @@
 plugins {
     id("com.android.application")
     kotlin("android")
+    // REMOVE this line below to fix conflict:
+    // id("org.jetbrains.kotlin.plugin.compose") version "1.5.3"
 }
 
 android {
